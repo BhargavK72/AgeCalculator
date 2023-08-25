@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  .dark-mode {
+    background-color: #333;
+    color: white;
+  }
+  .light-mode {
+    background-color: white;
+    color: #333;
+  }
+  button {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  #name {
+    width: 200px;
+    padding: 5px;
+  }
+  .result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .result-column {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    margin: 5px;
+  }
+  #years {
+    background-color: red;
+  }
+  #months {
+    background-color: orange;
+  }
+  #days {
+    background-color: pink; /* Changed the color for days */
+  }
+  #hours {
+    background-color: green;
+  }
+  #minutes {
+    background-color: blue;
+  }
+  #seconds {
+    background-color: purple;
+  }
+  #theme-toggle {
+    margin-top: 20px;
+  }
+  .made-by {
+    margin-top: 20px;
+    font-style: italic;
+    color: gray;
+  }
+</style>
+</head>
+<body class="light-mode">
+<h1>Age Calculator</h1>
+<div class="input-container">
+  <label for="name">Your Name:</label>
+  <input type="text" id="name" required>
+</div>
+<div class="input-container">
+  <label for="dob">Date of Birth:</label>
+  <input type="date" id="dob" required>
+</div>
+<button id="calculate">Calculate</button>
+<div class="result-container">
+  <div class="result-column" id="years"></div>
+  <div class="result-column" id="months"></div>
+  <div class="result-column" id="days"></div>
+  <div class="result-column" id="hours"></div>
+  <div class="result-column" id="minutes"></div>
+  <div class="result-column" id="seconds"></div>
+</div>
+<button id="theme-toggle">Change Theme</button>
+<div class="made-by">Made By: GiGByte72</div>
+
+<script>
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  themeToggle.addEventListener('click', toggleTheme);
+
+  function toggleTheme() {
+    body.classList.toggle('dark-mode');
+    body.classList.toggle('light-mode');
+  }
+
+  document.getElementById('calculate').addEventListener('click', calculateAge);
+
+  function calculateAge() {
+    const name = document.getElementById('name').value;
+    const dob = new Date(document.getElementById('dob').value);
+    const now = new Date();
+
+    const ageInMillis = now - dob;
+    const ageInSeconds = ageInMillis / 1000;
+    const ageInMinutes = ageInSeconds / 60;
+    const ageInHours = ageInMinutes / 60;
+    const ageInDays = ageInHours / 24;
+    const ageInMonths = ageInDays / 30.44; // Approximate value
+    const ageInYears = ageInMonths / 12;
+
+    const years = Math.floor(ageInYears);
+    const months = Math.floor(ageInMonths % 12);
+    const days = Math.floor(ageInDays % 30.44);
+    const hours = Math.floor(ageInHours % 24);
+    const minutes = Math.floor(ageInMinutes % 60);
+    const seconds = Math.floor(ageInSeconds % 60);
+
+    document.getElementById('years').textContent = `${name}, you are ${years} years`;
+    document.getElementById('months').textContent = `${months} months`;
+    document.getElementById('days').textContent = `${days} days`;
+    document.getElementById('hours').textContent = `${hours} hours`;
+    document.getElementById('minutes').textContent = `${minutes} minutes`;
+    document.getElementById('seconds').textContent = `${seconds} seconds old.`;
+  }
+</script>
+</body>
+</html>
